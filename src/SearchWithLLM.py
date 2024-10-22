@@ -10,6 +10,7 @@ from langchain_ollama import OllamaEmbeddings
 from langchain_ollama import OllamaLLM
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from pymilvus import MilvusClient
+import datetime
 
 
 def exec(question):
@@ -65,4 +66,8 @@ def exec(question):
 
 
 if __name__ == '__main__':
+
+    start_time = datetime.datetime.now()
     exec("我有什么梦想? 如何实现")
+    end_time = datetime.datetime.now()
+    print('耗时: {}'.format(end_time - start_time))

@@ -21,7 +21,7 @@ if client.has_collection(collection_name):
 else:
     # collection不存在，创建collection并进行向量化
     print(f"Collection '{collection_name}' does not exist. Creating now...")
-    # 从url导入知识作为聊天背景上下文
+    # 从url导入知识作为聊天背景上下文, glob代表只查找org文件，可根据实际情况调整为txt等，recursive=True表示会递归查找
     loader = DirectoryLoader(os.path.join(os.environ["HOME"], "Documents/notes"), glob="*.org", recursive=True)
     # 加载一堆文件
     docs = loader.load()
