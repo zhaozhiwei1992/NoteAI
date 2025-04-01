@@ -1,0 +1,5 @@
+{
+    "collection_name": "note",
+    "milvus_uri": "http://localhost:19530",
+    "model": "llama3.2:3b"
+}

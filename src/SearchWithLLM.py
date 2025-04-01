@@ -24,15 +24,16 @@ def exec(question):
         # collection存在，执行后续操作
         print(f"Collection '{collection_name}' exists.")
         # 文本分词器
-        text_splitter = RecursiveCharacterTextSplitter()
-        documents = text_splitter.split_documents([])
+        # text_splitter = RecursiveCharacterTextSplitter()
+        # documents = text_splitter.split_documents([])
 
         # ollama嵌入层
         embeddings = OllamaEmbeddings(
             model="llama3.2:3b"
         )
-        # 文档向量化
-        vector_store = Milvus.from_documents(documents=documents, embedding=embeddings, collection_name=collection_name)
+        # 文档向量化, 加载已有数据
+        # vector_store = Milvus.from_documents(documents=documents, embedding=embeddings, collection_name=collection_name)
+        vector_store = Milvus(collection_name=collection_name, embedding_function=OllamaEmbeddings(model="llama3.2:3b"))
     else:
         # collection不存在，创建collection并进行向量化
         print(f"Collection '{collection_name}' does not exist. Please exec LoadFile2Vector.py first")
@@ -62,12 +63,12 @@ def exec(question):
         # 调用上面的 (向量数据库检索chain)
         response = retrieval_chain.invoke({"input": question})
         # 打印结果
-        print(response["answer"])
+        return response["answer"]
 
 
 if __name__ == '__main__':
 
     start_time = datetime.datetime.now()
-    exec("我有什么梦想? 如何实现")
+    print(exec("你是谁?"))
     end_time = datetime.datetime.now()
     print('耗时: {}'.format(end_time - start_time))

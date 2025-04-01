@@ -5,8 +5,8 @@ fastapi dev main.py
 
 """
 from typing import Union
-
 from fastapi import FastAPI
+import SearchWithLLM
 
 app = FastAPI()
 
@@ -24,4 +24,6 @@ def read_item():
 @app.get("/api/question")
 def read_item(q: Union[str, None] = None):
     # curl http://127.0.0.1:8000?q=你好
-    return {"q": q}
+    # return {"q": q}
+    search_result = SearchWithLLM.exec(q)
+    return search_result
